@@ -1,86 +1,6 @@
 # http://openapi.seoul.go.kr:8088/(인증키)/xml/GetParkInfo/1/5/
 # 78566558566c696d35337144614a64
 
-# import requests
-# import pandas as pd
-# import math
-
-# API_KEY = "78566558566c696d35337144614a64"
-# url=f'http://openapi.seoul.go.kr:8088/{API_KEY}/json/GetParkInfo/1/2/'
-# re=requests.get(url)
-# rjson=re.json()
-# total_num=int(rjson['GetParkInfo']['list_total_count'])
-
-# parking_name=[]
-# pay_yn=[]
-# full_month_fee=[]
-# rates=[]
-# time_rates=[]
-# lat=[]
-# long=[]
-# cap=[]
-# holiday=[]
-
-# for i in range(1, math.ceil(total_num/1000)+1):
-
-#     end=i*1000
-#     start=end-1000 +1
-
-#     if end >total_num:
-#         end = total_num
-
-#     url=f'http://openapi.seoul.go.kr:8088/{API_KEY}/json/GetParkInfo/{start}/{end}'
-#     re=requests.get(url)
-#     rjson=re.json()
-
-#     for u in rjson['GetParkInfo']['row']:
-#         parking_name.append(u['PARKING_NAME'])
-#         pay_yn.append(u['PAY_NM'])
-#         full_month_fee.append(u['FULLTIME_MONTHLY'])
-#         rates.append(u['RATES'])
-#         time_rates.append(u['TIME_RATE'])
-#         lat.append(u['LAT'])
-#         long.append(u['LNG'])
-#         cap.append(u['CAPACITY'])
-#         holiday.append(u['HOLIDAY_PAY_NM'])
-
-
-# import requests
-# import pprint
-# import json
-
-# url = 'http://api.data.go.kr/openapi/tn_pubr_public_cctv_api?serviceKey=78566558566c696d35337144614a64&pageNo=1&numOfRows=10&type=json'
-
-# response = requests.get(url)
-
-# contents = response.text
-
-# import requests
-# import pprint
-# import json
-# import pandas as pd
-
-# url = 'http://api.data.go.kr/openapi/tn_pubr_public_cctv_api?serviceKey=78566558566c696d35337144614a64&pageNo=1&numOfRows=10&type=json'
-
-# response = requests.get(url)
-
-# contents = response.text
-
-# pp = pprint.PrettyPrinter(indent=4)
-# print(pp.pprint(contents))
-
-# json_ob = json.loads(contents)
-
-# body = json_ob['response']['body']['items']
-# print(body)
-
-# dataframe = pd.json_normalize(body)
-
-# print(dataframe)
-
-# http://openapi.seoul.go.kr:8088/(인증키)/xml/GetParkInfo/1/5/
-# 78566558566c696d35337144614a64
-
 import json
 import requests
 
@@ -105,15 +25,15 @@ import requests
 # 4c655649426c696d3130386849544c42
 # CPCTY 수용가능한 주차대수 / CUR_PRK_CNT 검색하기 / 나와있는 주차장도 있고 없는 주차장도 있음
 
-inputArea = input()
+inputArea = input("구 명을 입력하세요 : ")
 API_KEY = "78566558566c696d35337144614a64"
 
 url = f'http://openapi.seoul.go.kr:8088/{API_KEY}/json/GetParkInfo/1/500/{inputArea}'
 son = requests.get(url)
 rjson = son.json()
 
-parking_name = []  # 주차장 명
-pay_yn = []
+parking_name = []# 주차장 명
+pay_yn = [] # 유무료 구분
 full_month_fee = []
 rates = []
 time_rates = []
@@ -123,8 +43,7 @@ cap = []
 holiday = []
 
 for u in rjson['GetParkInfo']['row']:
-    parking_name = u['PARKING_NAME']
-    print(parking_name)
+    parking_name.append(u['PARKING_NAME'])
     pay_yn.append(u['PAY_NM'])
     full_month_fee.append(u['FULLTIME_MONTHLY'])
     rates.append(u['RATES'])
@@ -134,5 +53,8 @@ for u in rjson['GetParkInfo']['row']:
     cap.append(u['CAPACITY'])
     holiday.append(u['HOLIDAY_PAY_NM'])
 
+for i in 1000:
+    parking_name_result = list(set(parking_name))
+    parking_name_result = list(set(parking_name))
 
-print()
+print(parking_name_result)
