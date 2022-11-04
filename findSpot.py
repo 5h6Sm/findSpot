@@ -53,8 +53,23 @@ for u in rjson['GetParkInfo']['row']:
     cap.append(u['CAPACITY'])
     holiday.append(u['HOLIDAY_PAY_NM'])
 
-for i in 1000:
-    parking_name_result = list(set(parking_name))
-    parking_name_result = list(set(parking_name))
+# for i in 1000:
+#     parking_name_result = list(set(parking_name))
 
-print(parking_name_result)
+# print(parking_name_result)
+
+import requests, json
+
+def current_location():
+    here_req = requests.get("http://www.geoplugin.net/json.gp")
+
+    if (here_req.status_code != 200):
+        print("현재좌표를 불러올 수 없음")
+    else:
+        location = json.loads(here_req.text)
+        crd = {"lat": str(location["geoplugin_latitude"]), "lng": str(location["geoplugin_longitude"])}
+
+    return crd
+
+crd = current_location()
+print(crd)
